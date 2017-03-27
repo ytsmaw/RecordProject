@@ -17,7 +17,9 @@ fq = [fq fliplr(fq)];
 %apply your curve to the recording
 sourceEq = sourceF .* attenrec';
 
-result = real(ifft(sourceEq));
+res = real(ifft(sourceEq));
+res(abs(res)>1.2) = 1.2;
+result = res;
 
 if nargin == 3
     if makesounds == 1
@@ -37,20 +39,22 @@ if nargin == 3
         legend('playback curve', 'recording curve')
         xlim([10,fs]);
 
+        mx = max(result);
+        
         figure(2)
         subplot(2,1,1)
-        plot(result(100000:105000))
+        plot(result)
         title('Resulting waveform 1 (RIAA EQ`d)')
-        sound(result,fs);
-        ylim([-1.5,1.5])
-        pause(12)
+        sound(result(100000:541000),fs);
+        ylim([-mx,mx])
+        pause(10)
 
         subplot(2,1,2)
-        plot(source(100000:105000,1))
+        plot(source(:,1))
         title('Original Waveform')
-        sound(source,fs)
-        ylim([-1.5,1.5])
-        pause(12)
+        sound(source(100000:541000),fs)
+        ylim([-mx,mx])
+        pause(10)
 
         sourceF2 = fft(result);
         sourceEq2 = sourceF2 .* attenpla';
@@ -61,14 +65,14 @@ if nargin == 3
         plot(result2)
         title('Resulting waveform 2 (original)')
         ylim([-1.5,1.5])
-        soundsc(result2,fs);
-        pause(12)
+        soundsc(result2(100000:541000),fs);
+        pause(10)
 
         subplot(2,1,2)
         plot(source(:,1))
         title('Original Waveform')
         ylim([-1.5,1.5])
-        soundsc(source,fs)
+        soundsc(source(100000:541000),fs)
     end
 end
 %}

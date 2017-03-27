@@ -7,6 +7,10 @@ ylim = ylim * 1000;
 x = 1000 * x + xlim/2;
 y = 1000 * y + ylim/2;
 
+if exist(strcat(pwd,'\Outputs\'),'dir') == false
+    mkdir(strcat(pwd,'\Outputs\'));
+    disp('Outputs folder created!')
+end
 epsboy = fopen(strcat(pwd,'\Outputs\',fname),'w');
 s = '%';
 %now for the tough stuff
