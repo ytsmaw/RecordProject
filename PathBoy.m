@@ -4,7 +4,7 @@ close all
 
 
 %% inputs
-filename = 'Eskim.mp3';
+filename = 'BMSR-SunOrgan.mp3';
 GPI = 150; %Grooves Per Inch (in)
 G_width = .005; %Max Groove width (in) equals number of rotations over space filled with grooves.
 rec_diam = 5; %Record diameter (in)
@@ -13,7 +13,7 @@ shrink_factor = 2; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
 type = 'eps'; %eps or svg
 
 %% The calculation
-
+addpath('Inputs')
 [source, fs] = audioread(filename);
 
 source = RIAAprep(source,fs);
@@ -60,12 +60,13 @@ title 'Groove Path'
 pause(0)
 
 %% the path creation
-if strcmp(type,'eps')
+switch type
+    case 'eps'
     fname = sprintf('%s_d%ggpi%gw%g.eps', filename(1:(length(filename)-4)),rec_diam,GPI,w); %creating the file name
     disp('Commencing EPS creation')
     m = epstrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to EPS
     disp(m);
-else
+    case 'svg'
     fname = sprintf('%s_d%ggpi%gw%g.svg', filename(1:(length(filename)-4)),rec_diam,GPI,w); %creating the file name
     disp('Commencing SVG creation')
     m = svgtrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to SVG

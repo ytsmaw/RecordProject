@@ -7,7 +7,7 @@ ylim = ylim * 1000;
 x = 1000 * x + xlim/2;
 y = 1000 * y + ylim/2;
 
-epsboy = fopen(fname,'w');
+epsboy = fopen(strcat(pwd,'\Outputs\',fname),'w');
 s = '%';
 %now for the tough stuff
 fprintf(epsboy,'%s!PS-Adobe-2.0 EPSF-2.0 \n%s%sBoundingBox: 0 0 %g %g \nnewpath \n%g %g moveto \n',s,s,s, xlim, ylim, x(1), y(1));
