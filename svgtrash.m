@@ -1,4 +1,11 @@
 function msg = svgtrash(x,y,xlim,ylim,fname)
+
+if exists(strcat(pwd,'\Outputs\')) == false
+    mkdir(strcat(pwd,'\Outputs\'));
+    disp('Outputs folder created!')
+end
+svgboy = fopen(strcat(pwd,'\Outputs\',fname),'w');
+
 % basic beginning stuff
 xlim = xlim * 1000;
 ylim = ylim * 1000;
@@ -10,7 +17,7 @@ L2 = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics
 L3 = sprintf('<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="%gpx" height="%gpx" viewBox="%g %g %g %g" xml:space="preserve">' ...
     , xlim, ylim, 0, xlim, 0, ylim);
 
-svgboy = fopen(sprintf('matlab/Outputs/%s',fname),'w');
+
 fprintf(svgboy,'%s\n%s\n%s\n',L1,L2,L3);
 %now for the tough stuff
 fprintf(svgboy,'\n<polyline points="');
