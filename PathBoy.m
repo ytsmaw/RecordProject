@@ -10,13 +10,13 @@ G_width = .004; %Max Groove width (in) equals number of rotations over space fil
 rec_diam = 5; %Record diameter (in)
 w = 45; %rotation speed (RPM)
 shrink_factor = 1; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
-type = 'eps'; %eps or svg
+type = 'dxf'; %eps or svg
 
 %% The calculation
 addpath('Inputs')
 [source, fs] = audioread(filename);
 
-source = RIAAprep(source,fs,true);
+source = RIAAprep(source,fs);
 source = source(shrink_factor:shrink_factor:length(source));
 fs = fs/shrink_factor;
 len = length(source);
@@ -70,6 +70,11 @@ switch type
     fname = sprintf('%s_d%ggpi%gw%g.svg', filename(1:(length(filename)-4)),rec_diam,GPI,w); %creating the file name
     disp('Commencing SVG creation')
     m = svgtrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to SVG
+    disp(m);
+    case 'dxf'
+    fname = sprintf('%s_d%ggpi%gw%g.dxf', filename(1:(length(filename)-4)),rec_diam,GPI,w); %creating the file name
+    disp('Commencing DXF creation')
+    m = dxftrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to SVG
     disp(m);
 end
 % output = [0,theta;0,rho]';
