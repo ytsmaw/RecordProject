@@ -5,18 +5,18 @@ close all
 
 %% inputs
 filename = 'BMSR-SunOrgan.mp3';
-GPI = 150; %Grooves Per Inch (in)
-G_width = .005; %Max Groove width (in) equals number of rotations over space filled with grooves.
+GPI = 100; %Grooves Per Inch (in)
+G_width = .004; %Max Groove width (in) equals number of rotations over space filled with grooves.
 rec_diam = 5; %Record diameter (in)
 w = 45; %rotation speed (RPM)
-shrink_factor = 2; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
+shrink_factor = 1; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
 type = 'eps'; %eps or svg
 
 %% The calculation
 addpath('Inputs')
 [source, fs] = audioread(filename);
 
-source = RIAAprep(source,fs);
+source = RIAAprep(source,fs,true);
 source = source(shrink_factor:shrink_factor:length(source));
 fs = fs/shrink_factor;
 len = length(source);
@@ -47,11 +47,11 @@ spiral = inner_R + (1:len) * (outer_R-inner_R)/len; %creating the base spiral th
 rho = spiral + linPath; % the superposition!
 
 %% the display
-figure(1)
+figure()
 grid off
 line = polarplot(theta,rho, [0,2*pi], [rec_diam, rec_diam]);
 [x,y] = pol2cart(theta,rho);
-figure(2)
+figure()
 axis equal
 plot(x,y)
 xlabel inches
