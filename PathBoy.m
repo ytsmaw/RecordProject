@@ -74,7 +74,7 @@ switch type
     case 'dxf'
     fname = sprintf('%s_d%ggpi%gw%g.dxf', filename(1:(length(filename)-4)),rec_diam,GPI,w); %creating the file name
     disp('Commencing DXF creation')
-    m = dxftrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to SVG
+    m = dxftrash(x,y,rec_diam, fname); %converting X-Y coordinates to SVG
     disp(m);
 end
 % output = [0,theta;0,rho]';
