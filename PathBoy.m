@@ -5,9 +5,9 @@ close all
 
 %% inputs
 filename = 'BMSR-SunOrgan.mp3';
-GPI = 100; %Grooves Per Inch (in)
+GPI =40; %Grooves Per Inch (in)
 G_width = .004; %Max Groove width (in) equals number of rotations over space filled with grooves.
-rec_diam = 5; %Record diameter (in)
+rec_diam = 6; %Record diameter (in)
 w = 45; %rotation speed (RPM)
 shrink_factor = 1; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
 type = 'dxf'; %eps or svg
@@ -27,7 +27,7 @@ linPath = source'./(max(abs(source))) .* G_width/2; %linear path of music
 
 numRev = (len/fs) / (60/w); % number of revolutions
 
-inner_R = outer_R - (GPI^-1 * numRev); % inner diameter of music
+inner_R = outer_R - (GPI^-1 * numRev) % inner diameter of music
 
 min_point_spacing = ( 1/(60/w)*(2*pi) ) / fs; %how far apart data points will be (in degrees) at the interior diameter.
 
