@@ -11,6 +11,7 @@ rec_diam = 8; %Record diameter (in)
 w = 45; %rotation speed (RPM)
 shrink_factor = 1.5; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
 type = 'dxf'; %eps or svg or dxf
+number_of_files = 10;
 
 %% The calculation
 addpath('Inputs')
@@ -72,9 +73,13 @@ switch type
     m = svgtrash(x,y,rec_diam, rec_diam, fname); %converting X-Y coordinates to SVG
     disp(m);
     case 'dxf'
-    fname = sprintf('%s_d%ggpi%gw%gs%g.dxf', filename(1:(length(filename)-4)),rec_diam,GPI,w,shrink_factor); %creating the file name
+    fname = sprintf('%s_d%ggpi%gw%gs%g\\', filename(1:(length(filename)-4)),rec_diam,GPI,w,shrink_factor); %creating the file name
     disp('Commencing DXF creation')
-    m = dxftrash(x,y,rec_diam, fname); %converting X-Y coordinates to SVG
+    for i = 1:number_of_files
+        name = sprintf('%g.dxf',i);
+        split = floor(length(x)/(number_of_files)-4);
+        m = dxftrash(x( ((i-1)*split+1) : (i*split+4) ),y( ((i-1)*split+1) : (i*split+4) ),rec_diam,fname, name); %converting X-Y coordinates to SVG
+    end
     disp(m);
 end
 % output = [0,theta;0,rho]';

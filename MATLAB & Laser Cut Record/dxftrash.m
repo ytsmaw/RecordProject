@@ -1,4 +1,4 @@
-function msg = dxftrash(x,y,diam,fname)
+function msg = dxftrash(x,y,diam,fname,name)
 
 % http://www.autodesk.com/techpubs/autocad/acad2000/dxf/header_section_group_codes_dxf_02.htm
 
@@ -12,7 +12,10 @@ if exist(strcat(pwd,'\Outputs\'),'dir') == false
     mkdir(strcat(pwd,'\Outputs\'));
     disp('Outputs folder created!')
 end
-dxfboy = fopen(strcat(pwd,'\Outputs\',fname),'w');
+if exist(strcat(pwd,'\Outputs\',fname),'dir') == false
+    mkdir(strcat(pwd,'\Outputs\',fname));
+end
+dxfboy = fopen(strcat(pwd,'\Outputs\',fname,name),'w');
 
 
 %% Head, Tables
@@ -36,7 +39,7 @@ for i = 2:10000
     fprintf(dxfboy,'0\r\nLINE\r\n8\r\n0\r\n10\r\n%g\r\n20\r\n%g\r\n30\r\n0\r\n11\r\n%g\r\n21\r\n%g\r\n31\r\n0\r\n',x(i-1),y(i-1),x(i),y(i));
 end
 tim = toc;
-fprintf('Estimated time: %3f minutes\n', (length(x)-10000)/10000 * tim /60);
+fprintf('%s Estimated time: %3f minutes\n', name, (length(x)-10000)/10000 * tim /60);
 
 for i = 10001:nel %length(x)
     fprintf(dxfboy,'0\r\nLINE\r\n8\r\n0\r\n10\r\n%g\r\n20\r\n%g\r\n30\r\n0\r\n11\r\n%g\r\n21\r\n%g\r\n31\r\n0\r\n',x(i-1),y(i-1),x(i),y(i));
