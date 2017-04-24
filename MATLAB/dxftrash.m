@@ -3,8 +3,9 @@ function msg = dxftrash(x,y,diam,fname,name)
 % http://www.autodesk.com/techpubs/autocad/acad2000/dxf/header_section_group_codes_dxf_02.htm
 
 x = x+diam/2;
-y=y+diam/2;
-
+x = round(x,3);
+y = y+diam/2;
+y = round(y,3);
 %info: http://paulbourke.net/dataformats/dxf/min3d.html
 nel = length(x); % number of elements
 
@@ -15,8 +16,8 @@ end
 if exist(strcat(pwd,'\Outputs\',fname),'dir') == false
     mkdir(strcat(pwd,'\Outputs\',fname));
 end
-dxfboy = fopen(strcat(pwd,'\Outputs\',fname,name),'w');
 
+dxfboy = fopen(strcat(pwd,'\Outputs\',fname,name),'w');
 
 %% Head, Tables
 tp = fopen('Top.txt');

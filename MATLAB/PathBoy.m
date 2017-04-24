@@ -11,7 +11,7 @@ rec_diam = 8; %Record diameter (in)
 w = 45; %rotation speed (RPM)
 shrink_factor = 1.5; % 2 = 1/2 sampling rate, 3 = 1/3, etc.
 type = 'dxf'; %eps or svg or dxf
-number_of_files = 10;
+number_of_files = 15;
 
 %% The calculation
 addpath('Inputs')
@@ -90,3 +90,4 @@ end
 % csvwrite(fname,output);
 % fid = fclose(fid);
 % 
+
